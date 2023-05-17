@@ -1,0 +1,76 @@
+{% extends "layout.html" %}
+{%block content%}
+<head>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/custom.css') }}">
+</head>
+{%if current_user.is_customer%}
+<div class="container">
+    <div class="row justify-content-center">
+        <div class="col-12 col-lg-10 col-xl-8 mx-auto">
+            <h2 class="h3 mb-4 page-title">My Account</h2>
+            <div class="my-4">
+                <ul class="nav nav-tabs mb-4" id="myTab" role="tablist">
+                    <li class="nav-item">
+                        <a class="nav-link active" id="home-tab" data-toggle="tab" href="{{url_for('account')}}" role="tab" aria-controls="home" aria-selected="false">Profile</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link active" id="home-tab" data-toggle="tab" href="{{url_for('wallet')}}" role="tab" aria-controls="home" aria-selected="false">Wallet</a>
+                    </li>
+                </ul>
+
+                <h1>Deposit Money</h1>
+                <p>Current Balance: ${{ current_user.money }}</p>
+                <form method="POST" action="{{ url_for('wallet') }}">
+                    {{ form.csrf_token }}
+                    <div class="form-group">
+                        {{ form.card_number.label }}
+                        {{ form.card_number(class="form-control") }}
+                        {% for error in form.card_number.errors %}
+                            <span class="text-danger">{{ error }}</span>
+                        {% endfor %}
+                    </div>
+                    <div class="form-group">
+                        {{ form.card_holder.label }}
+                        {{ form.card_holder(class="form-control") }}
+                        {% for error in form.card_holder.errors %}
+                            <span class="text-danger">{{ error }}</span>
+                        {% endfor %}
+                    </div>
+                    <div class="form-row">
+                    <div class="form-group col-md-6">
+                        {{ form.card_expire_month.label }}
+                        {{ form.card_expire_month(class="form-control") }}
+                        {% for error in form.card_expire_month.errors %}
+                            <span class="text-danger">{{ error }}</span>
+                        {% endfor %}
+                    </div>
+                    <div class="form-group col-md-6">
+                        {{ form.card_expire_year.label }}
+                        {{ form.card_expire_year(class="form-control") }}
+                        {% for error in form.card_expire_year.errors %}
+                            <span class="text-danger">{{ error }}</span>
+                        {% endfor %}
+                    </div>
+                    </div>
+                    <div class="form-group">
+                        {{ form.cvv.label }}
+                        {{ form.cvv(class="form-control") }}
+                        {% for error in form.cvv.errors %}
+                            <span class="text-danger">{{ error }}</span>
+                        {% endfor %}
+                    </div>
+                    <div class="form-group">
+                        {{ form.deposit_amount.label }}
+                        {{ form.deposit_amount(class="form-control") }}
+                        {% for error in form.deposit_amount.errors %}
+                            <span class="text-danger">{{ error }}</span>
+                        {% endfor %}
+                    </div>
+                    {{ form.submit(class="btn btn-primary") }}
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+{%endif%}
+{%endblock%}

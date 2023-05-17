@@ -1,0 +1,18 @@
+{%extends "layout.html"%}
+{%block content%}
+
+<h1>Customize Your Edge Computing Device</h1>
+                <form method="POST" action="{{ url_for('edge_computing_detail', edge_computing_id=edge_computing.id) }}" enctype="multipart/form-data">
+                    {{ form.csrf_token }}
+                    
+                    <div class="form-group">
+                        {{ form.RAM.label }}
+                        {{ form.RAM(class="form-control") }}
+                        {% for error in form.RAM.errors %}
+                            <span class="text-danger">{{ error }}</span>
+                        {% endfor %}
+                    </div>
+                    
+                    {{ form.submit(class="btn btn-primary") }}
+                </form>
+{%endblock%}

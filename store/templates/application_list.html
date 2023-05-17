@@ -1,0 +1,29 @@
+{%extends "layout.html"%}
+{%block content%}
+    <div class="content">
+        <h1 style="text-align: center">Application List</h1>
+        <table class="table">
+            <thead>
+            <tr>
+                <th scope="col">Application ID</th>
+                <th scope="col">Name</th>
+                <th scope="col">Email</th>
+                <th scope="col">Position</th>
+                
+            </tr>
+            </thead>
+            <tbody>
+                {% for application in applications %}
+                <tr>
+                    <td>{{ application.id }}</td>
+                    <td>{{ application.name }}</td>
+                    <td>{{ application.email }}</td>
+                    <td>{{ application.position }}</td>
+                    <td>
+                    <a href="{{url_for('application', application_id=application.id)}}">Detail</a>
+                    </td>
+            {% endfor %}
+            </tbody>
+        </table>
+    </div>
+{%endblock%} 

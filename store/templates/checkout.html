@@ -1,0 +1,19 @@
+{% extends "layout.html" %}
+{%block content%}
+
+<h1>Checkout For {{item}}</h1>
+<div>
+    <p>Total Price: ${{price}}</p>
+    {% if current_user.has_discount %}
+    <small style="color:red">10% Discount Applied!</small>
+    {%endif%}
+    <P>Your Current Balance: ${{current_user.money}}</P>
+    <p style="color:red">Please Confirm Your Purchase</p>
+</div>
+<div>
+    <a href="{{url_for('process_checkout',checkout_id=id)}}">Checkout</a>
+</div>
+
+
+
+{%endblock%}

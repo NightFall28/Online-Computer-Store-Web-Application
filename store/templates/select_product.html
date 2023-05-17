@@ -1,0 +1,17 @@
+{%extends "layout.html"%}
+{%block content%}
+
+<h1>Select Product Type</h1>
+                <form method="POST" action="{{ url_for('select_product') }}">
+                    {{ form.csrf_token }}
+                    <div class="form-group">
+                        {{ form.computer_type.label }}
+                        {{ form.computer_type(class="form-control") }}
+                        {% for error in form.computer_type.errors %}
+                            <span class="text-danger">{{ error }}</span>
+                        {% endfor %}
+                    </div>
+                    {{ form.submit(class="btn btn-primary") }}
+                </form>
+
+{%endblock%}

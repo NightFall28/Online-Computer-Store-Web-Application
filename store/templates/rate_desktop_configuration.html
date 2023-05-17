@@ -1,0 +1,18 @@
+{%extends "layout.html"%}
+{%block content%}
+
+<h1>Rate This Configuration</h1>
+                <form method="POST" action="{{ url_for('rate_desktop_configuration',desktop_id=desktop_id) }}" enctype="multipart/form-data">
+                    {{ form.csrf_token }}
+                    <div class="form-group">
+                        {{ form.rating.label }}
+                        {{ form.rating(class="form-control") }}
+                        {% for error in form.rating.errors %}
+                            <span class="text-danger">{{ error }}</span>
+                        {% endfor %}
+                    </div>
+
+                    {{ form.submit(class="btn btn-primary") }}
+                </form>
+
+{%endblock%}

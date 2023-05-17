@@ -1,0 +1,50 @@
+{%extends "layout.html"%}
+
+{% block content %}
+
+<h1>Customize Your Laptop</h1>
+<form method="POST" action="{{ url_for('laptop_detail', laptop_id=laptop.id) }}" enctype="multipart/form-data">
+    {{ form.csrf_token }}
+
+    <div class="form-group">
+        {{ form.processor.label }}
+        {{ form.processor(class="form-control") }}
+        {% for error in form.processor.errors %}
+            <span class="text-danger">{{ error }}</span>
+        {% endfor %}
+    </div>
+
+    <div class="form-group">
+        {{ form.graphic_card.label }}
+        {{ form.graphic_card(class="form-control") }}
+        {% for error in form.graphic_card.errors %}
+            <span class="text-danger">{{ error }}</span>
+        {% endfor %}
+    </div>
+    <div class="form-group">
+        {{ form.operating_system.label }}
+        {{ form.operating_system(class="form-control") }}
+        {% for error in form.operating_system.errors %}
+            <span class="text-danger">{{ error }}</span>
+        {% endfor %}
+    </div>
+    <div class="form-group">
+        {{ form.memory.label }}
+        {{ form.memory(class="form-control") }}
+        {% for error in form.memory.errors %}
+            <span class="text-danger">{{ error }}</span>
+        {% endfor %}
+    </div>
+    <div class="form-group">
+        {{ form.hard_drive.label }}
+        {{ form.hard_drive(class="form-control") }}
+        {% for error in form.hard_drive.errors %}
+            <span class="text-danger">{{ error }}</span>
+        {% endfor %}
+    </div>
+    
+    {{ form.submit(class="btn btn-primary") }}
+</form>
+
+
+{%endblock%}

@@ -1,0 +1,88 @@
+{%extends "layout.html"%}
+
+{% block content %}
+
+<h1>Customize Your Desktop</h1>
+<form method="POST" action="{{ url_for('desktop_detail', desktop_id=desktop.id) }}" enctype="multipart/form-data">
+    {{ form.csrf_token }}
+    <div class="form-group">
+        {{ form.motherboard.label }}
+        {{ form.motherboard(class="form-control") }}
+        {% for error in form.motherboard.errors %}
+            <span class="text-danger">{{ error }}</span>
+        {% endfor %}
+    </div>
+
+    <div class="form-group">
+        {{ form.processor.label }}
+        {{ form.processor(class="form-control") }}
+        {% for error in form.processor.errors %}
+            <span class="text-danger">{{ error }}</span>
+        {% endfor %}
+    </div>
+    
+
+    <div class="form-group">
+        {{ form.graphic_card.label }}
+        {{ form.graphic_card(class="form-control") }}
+        {% for error in form.graphic_card.errors %}
+            <span class="text-danger">{{ error }}</span>
+        {% endfor %}
+    </div>
+    <div class="form-group">
+        {{ form.operating_system.label }}
+        {{ form.operating_system(class="form-control") }}
+        {% for error in form.operating_system.errors %}
+            <span class="text-danger">{{ error }}</span>
+        {% endfor %}
+    </div>
+    <div class="form-group">
+        {{ form.memory.label }}
+        {{ form.memory(class="form-control") }}
+        {% for error in form.memory.errors %}
+            <span class="text-danger">{{ error }}</span>
+        {% endfor %}
+    </div>
+    <div class="form-group">
+        {{ form.hard_drive.label }}
+        {{ form.hard_drive(class="form-control") }}
+        {% for error in form.hard_drive.errors %}
+            <span class="text-danger">{{ error }}</span>
+        {% endfor %}
+    </div>
+
+    <div class="form-group">
+        {{ form.case.label }}
+        {{ form.case(class="form-control") }}
+        {% for error in form.case.errors %}
+            <span class="text-danger">{{ error }}</span>
+        {% endfor %}
+    </div>
+    
+    {{ form.submit(class="btn btn-primary") }}
+</form>
+
+
+<script>
+    let motherboard_select = document.getElementById('motherboard');
+    let processor_select = document.getElementById('processor');
+
+    motherboard_select.onchange = function() {
+        motherboard = motherboard_select.value;
+        
+        fetch('/add_product/desktop/' + motherboard).then(function(response) {
+            response.json().then(function(data) {
+                let optionHTML = '';
+
+                for (g of data.Processors) {
+
+                    optionHTML += '<option value="' + g.name + '">' + g.name + '</option>';
+                }
+                
+                processor_select.innerHTML = optionHTML;
+            });
+        });
+    }
+</script>
+
+{%endblock%}

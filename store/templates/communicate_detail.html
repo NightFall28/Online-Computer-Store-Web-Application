@@ -1,0 +1,34 @@
+{% extends "layout.html" %}
+
+{%block content%}
+<h1>Conversation</h1>
+<a href="{{url_for('add_reply', order_id=order_id)}}">Add Reply</a>
+<a href="{{url_for('report_admin')}}">File Report</a>
+{%for c in replies%}
+<article class="media content-section">
+    <img class="rounded-circle article-img" src="{{ url_for('static',filename='profile_pics/' + c.image_file) }}" width="50px" height="50px">
+    
+    <div class="media-body">
+    <div class="article-metadata">
+        <a href="#">{{ c.author }}</a>
+        <small class="text-muted">User ID: {{ c.user_id }}</small>
+        <small class="text-muted">Order ID: {{ c.order_id }}</small>
+        <small class="text-muted">{{ c.date_submitted.strftime('%Y-%m-%d %H:%M:%S') }}</small>
+    </div>
+    <p class="article-content">{{ c.content }}</p>
+    </div>
+</article>
+{%endfor%} 
+{% for page_num in replies.iter_pages(left_edge=1, right_edge=1, left_current=1, right_current=2) %}
+        {% if page_num %}
+            {% if replies.page == page_num %}
+                <a class="btn btn-info mb-4" href="{{ url_for('communicate_detail', page=page_num, order_id=order_id) }}">{{ page_num }}</a>
+            {% else %}
+                <a class="btn btn-outline-info mb-4" href="{{ url_for('communicate_detail', page=page_num, order_id=order_id) }}">{{ page_num }}</a>
+            {% endif %}
+        {% else %}
+            ...
+        {% endif %}
+    {% endfor %}
+
+{%endblock%}

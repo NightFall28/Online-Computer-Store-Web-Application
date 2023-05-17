@@ -1,0 +1,39 @@
+{% extends "layout.html" %}
+
+{%block content%}
+
+<h1>Comments For {{laptop.name}}</h1>
+<a href="{{url_for('add_laptop_comment', laptop_id=laptop.id)}}">Add Comment</a>
+{%for c in comments%}
+<article class="media content-section">
+    {%if c.image_file%}
+    <img class="rounded-circle article-img" src="{{ url_for('static',filename='profile_pics/' + c.image_file) }}" width="50px" height="50px">
+    {%else%}
+    <img class="rounded-circle article-img" src="{{ url_for('static',filename='profile_pics/default.jpg') }}" width="50px" height="50px">
+    {%endif%}
+    <div class="media-body">
+    <div class="article-metadata">
+        {%if c.author%}
+        <a href="#">{{ c.author }}</a>
+        {%else%}
+        <a href="#">Visitor</a>
+        {%endif%}
+        <small class="text-muted">{{ c.date_submitted.strftime('%Y-%m-%d') }}</small>
+    </div>
+    <p class="article-content">{{ c.comment }}</p>
+    </div>
+</article>
+{%endfor%}
+{% for page_num in comments.iter_pages(left_edge=1, right_edge=1, left_current=1, right_current=2) %}
+        {% if page_num %}
+            {% if comments.page == page_num %}
+                <a class="btn btn-info mb-4" href="{{ url_for('laptop_comment', page=page_num, laptop_id=laptop.id) }}">{{ page_num }}</a>
+            {% else %}
+                <a class="btn btn-outline-info mb-4" href="{{ url_for('laptop_comment', page=page_num, laptop_id=laptop.id) }}">{{ page_num }}</a>
+            {% endif %}
+        {% else %}
+            ...
+        {% endif %}
+    {% endfor %}
+
+{%endblock%}

@@ -1,0 +1,53 @@
+{%extends "layout.html"%}
+{%block content%}
+
+<h1>Add Edge Computing Device</h1>
+                <form method="POST" action="{{ url_for('add_edge_computing') }}" enctype="multipart/form-data">
+                    {{ form.csrf_token }}
+                    <div class="form-group">
+                        {{ form.name.label }}
+                        {{ form.name(class="form-control") }}
+                        {% for error in form.name.errors %}
+                            <span class="text-danger">{{ error }}</span>
+                        {% endfor %}
+                    </div>
+                    <div class="form-group">
+                        {{ form.RAM.label }}
+                        {{ form.RAM(class="form-control") }}
+                        {% for error in form.RAM.errors %}
+                            <span class="text-danger">{{ error }}</span>
+                        {% endfor %}
+                    </div>
+                    <div class="form-group">
+                        {{ form.image_file.label }}
+                        {{ form.image_file(class="form-control") }}
+                        {% for error in form.image_file.errors %}
+                            <span class="text-danger">{{ error }}</span>
+                        {% endfor %}
+                    </div>
+                    
+                    {{ form.submit(class="btn btn-primary") }}
+                </form>
+                <script>
+                    let name_select = document.getElementById('name');
+                    let RAM_select = document.getElementById('RAM');
+
+                    name_select.onchange = function() {
+                        name = name_select.value;
+                    
+                        fetch('/add_product/edge_computing/' + name).then(function(response) {
+                            response.json().then(function(data) {
+                                let optionHTML = '';
+                                
+                                for (g of data.RAMs) {
+                                    
+                                    optionHTML += '<option value="' + g.RAM + '">' + g.RAM + '</option>';
+                                }
+                            
+
+                                RAM_select.innerHTML = optionHTML;
+                            });
+                        });
+                    }
+                </script>
+{%endblock%}

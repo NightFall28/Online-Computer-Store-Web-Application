@@ -1,0 +1,18 @@
+{%extends "layout.html"%}
+{%block content%}
+
+<h1>Display Permission</h1>
+                <form method="POST" action="{{ url_for('display_permission') }}" enctype="multipart/form-data">
+                    {{ form.csrf_token }}
+                    <div class="form-group">
+                        {{ form.allow.label }}
+                        {{ form.allow(class="form-control") }}
+                        {% for error in form.allow.errors %}
+                            <span class="text-danger">{{ error }}</span>
+                        {% endfor %}
+                    </div>
+                
+                    {{ form.submit(class="btn btn-primary") }}
+                </form>
+
+{%endblock%}

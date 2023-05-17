@@ -1,0 +1,95 @@
+{% extends "layout.html" %}
+
+{% block content %}
+    <div class="row">
+        {% for desktop in desktops %}
+            <div class="col-md-3">
+                <div class="card mb-3">
+                    <img src="static/case_pics/{{ desktop.image_file }}" class="card-img-top" alt="{{ desktop.name }}">
+                    <div class="card-body">
+                        <h5 class="card-title">{{ desktop.name }}</h5>
+                        <small>1 Star: {{ desktop.rating_1 }} &nbsp; &nbsp; &nbsp; &nbsp; 2 Star: {{ desktop.rating_2 }} &nbsp; &nbsp; &nbsp; &nbsp; 3 Star: {{ desktop.rating_3 }} <br>
+                            4 Star: {{ desktop.rating_4 }} &nbsp; &nbsp; &nbsp; &nbsp; 5 Star: {{ desktop.rating_5 }}
+                        </small>
+                        <p class="card-text">Category: {{ desktop.category }}</p>
+                        <p class="card-text">Processor: {{ desktop.processor }}</p>
+                        <p class="card-text">Graphic: {{ desktop.graphic_card }}</p>
+                        <p class="card-text">OS: {{ desktop.operating_system }}</p>
+                        <p class="card-text">Memory: {{ desktop.memory }}</p>
+                        <p class="card-text">Hard Drive: {{ desktop.hard_drive }}</p>
+                        <p class="card-text">Motherboard: {{ desktop.motherboard }}</p>
+                        <p class="card-text">Case: {{ desktop.case }}</p>
+                        <p class="card-text">${{ desktop.price }}</p>
+                        
+                        <a href="{{ url_for('desktop_detail', desktop_id=desktop.id) }}" class="btn btn-primary">Customize</a>
+                        <a href="{{ url_for('desktop_comment', desktop_id=desktop.id) }}" class="btn btn-primary">Comments</a>
+                        {%if current_user.is_employee%}
+                        <a href="{{ url_for('delete_desktop', desktop_id=desktop.id) }}" class="btn btn-danger">Delete</a>
+                        {%endif%}
+                    </div>
+                </div>
+            </div>
+        {% endfor %}
+
+        {% for desktop in customer_made_desktops %}
+            {% if desktop.allow_for_display %}
+            <div class="col-md-3">
+                <div class="card mb-3">
+                    <img src="static/case_pics/{{ desktop.image_file }}" class="card-img-top" alt="{{ desktop.name }}">
+                    <div class="card-body">
+                        <small class="text-muted">Customer Made Configuration</small>
+                        <h5 class="card-title">{{ desktop.name }}</h5>
+                        <small>1 Star: {{ desktop.rating_1 }} &nbsp; &nbsp; &nbsp; &nbsp; 2 Star: {{ desktop.rating_2 }} &nbsp; &nbsp; &nbsp; &nbsp; 3 Star: {{ desktop.rating_3 }} <br>
+                            4 Star: {{ desktop.rating_4 }} &nbsp; &nbsp; &nbsp; &nbsp; 5 Star: {{ desktop.rating_5 }}
+                        </small>
+                        <p class="card-text">Category: {{ desktop.category }}</p>
+                        <p class="card-text">Processor: {{ desktop.processor }}</p>
+                        <p class="card-text">Graphic: {{ desktop.graphic_card }}</p>
+                        <p class="card-text">OS: {{ desktop.operating_system }}</p>
+                        <p class="card-text">Memory: {{ desktop.memory }}</p>
+                        <p class="card-text">Hard Drive: {{ desktop.hard_drive }}</p>
+                        <p class="card-text">Motherboard: {{ desktop.motherboard }}</p>
+                        <p class="card-text">Case: {{ desktop.case }}</p>
+                        <p class="card-text">${{ desktop.price }}</p>
+                        
+                        <a href="{{ url_for('customer_desktop_detail', desktop_id=desktop.id) }}" class="btn btn-primary">Customize</a>
+                        <a href="{{ url_for('customer_made_desktop_comment', desktop_id=desktop.id) }}" class="btn btn-primary">Comments</a>
+                        {%if current_user.is_employee%}
+                        <a href="{{ url_for('delete_customer_desktop', desktop_id=desktop.id) }}" class="btn btn-danger">Delete</a>
+                        {%endif%}
+                    </div>
+                </div>
+            </div>
+            {% endif %}
+        {% endfor %}
+
+        {% for m in imacs %}
+            <div class="col-md-3">
+                <div class="card mb-3">
+                    <img src="static/laptop_pics/{{ m.image_file }}" class="card-img-top" alt="{{ m.name }}">
+                    <div class="card-body">
+                        <h5 class="card-title">{{ m.name }}</h5>
+                        <small>1 Star: {{ m.rating_1 }} &nbsp; &nbsp; &nbsp; &nbsp; 2 Star: {{ m.rating_2 }} &nbsp; &nbsp; &nbsp; &nbsp; 3 Star: {{ m.rating_3 }} <br>
+                            4 Star: {{ m.rating_4 }} &nbsp; &nbsp; &nbsp; &nbsp; 5 Star: {{ m.rating_5 }}
+                        </small>
+                        <p class="card-text">Color: {{ m.color }}</p>
+                        <p class="card-text">Processor: {{ m.processor }}</p>
+                        <p class="card-text">Graphic: {{ m.GPU }}</p>
+                        <p class="card-text">Memory: {{ m.memory }}</p>
+                        <p class="card-text">Hard Drive: {{ m.hard_drive }}</p>
+                        <p class="card-text">Ports: {{ m.ports }}</p>
+                        <p class="card-text">Accessory: {{ m.accessory }}</p>
+                        <p class="card-text">${{ m.price }}</p>
+                        
+                        <a href="{{ url_for('imac_detail', imac_id=m.id) }}" class="btn btn-primary">Customize</a>
+                        <a href="{{ url_for('imac_comment', imac_id=m.id) }}" class="btn btn-primary">Comments</a>
+                        {%if current_user.is_employee%}
+                        <a href="{{ url_for('delete_imac', imac_id=m.id) }}" class="btn btn-danger">Delete</a>
+                        {%endif%}
+                    </div>
+                </div>
+            </div>
+        {% endfor %}
+
+    </div>
+{% endblock %}

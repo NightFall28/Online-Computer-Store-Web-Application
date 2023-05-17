@@ -1,0 +1,41 @@
+{%extends "layout.html"%}
+{%block content%}
+    <div class="content">
+        <h1 style="text-align: center">Report List</h1>
+        <table class="table">
+            <thead>
+            <tr>
+                <th scope="col">Report ID</th>
+                <th scope="col">Reporter ID</th>
+                <th scope="col">Reported User ID</th>
+                <th scope="col">Content</th>
+                <th scope="col">Date Posted</th>
+                <th scope="col">Action</th>
+            </tr>
+            </thead>
+            <tbody>
+                {% for r in reports %}
+                <tr>
+                    <td>{{ r.id }}</td>
+                    <td>{{ r.reporter_id }}</td>
+                    <td>{{ r.reported_user_id }}</td>
+                    <td>{{ r.content }}</td>
+                    <td>{{ r.date_submitted.strftime('%Y/%m/%d %H:%M:%S') }}</td>
+                    <td><a href="{{ url_for('process_report',report_id=r.id) }}">Process</a></td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+    {% for page_num in reports.iter_pages(left_edge=1, right_edge=1, left_current=1, right_current=2) %}
+        {% if page_num %}
+            {% if reports.page == page_num %}
+                <a class="btn btn-info mb-4" href="{{ url_for('reports', page=page_num) }}">{{ page_num }}</a>
+            {% else %}
+                <a class="btn btn-outline-info mb-4" href="{{ url_for('reports', page=page_num) }}">{{ page_num }}</a>
+            {% endif %}
+        {% else %}
+            ...
+        {% endif %}
+    {% endfor %}
+{%endblock%} 

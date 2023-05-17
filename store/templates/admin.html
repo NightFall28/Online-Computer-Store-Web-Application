@@ -1,0 +1,26 @@
+{%extends "layout.html"%}
+{%block content%}
+    {%if current_user.is_admin%}
+        <h1 class="display-3" >Admin System</h1>
+        <form class="needs-validation" novalidate>
+            <div class="form-row">
+                <div class="col-md-4 mb-3">
+                    <button type="button" class="btn btn-primary btn-block" onclick="window.location.href='{{ url_for('applications') }}';">Applications</button>
+                </div>
+                <div class="col-md-4 mb-3">
+                    <button type="button" class="btn btn-primary btn-block" onclick="window.location.href='{{ url_for('memo') }}';">Memo</button>
+                </div>
+                <div class="col-md-4 mb-3">
+                    <button type="button" class="btn btn-primary btn-block" onclick="window.location.href='{{ url_for('reports') }}';">Reports</button>
+                </div>
+            </div>
+            <div class="form-row">
+                <div class="col-md-4 mb-3">
+                    <button type="button" class="btn btn-primary btn-block" onclick="window.location.href='{{ url_for('user_blacklist') }}';">Blacklist</button>
+                </div>
+                <div class="col-md-4 mb-3">
+                    <button type="button" class="btn btn-primary btn-block" onclick="window.location.href='{{ url_for('user_list') }}';">User List</button>
+                </div>
+        </form>
+    {%endif%}
+{%endblock%} 

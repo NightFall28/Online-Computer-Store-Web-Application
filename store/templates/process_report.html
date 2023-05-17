@@ -1,0 +1,25 @@
+{%extends "layout.html"%}
+{%block content%}
+
+<h1>Process Report</h1>
+                <form method="POST" action="{{ url_for('process_report',report_id=report_id) }}" enctype="multipart/form-data">
+                    {{ form.csrf_token }}
+                    <div class="form-group">
+                        {{ form.compliment.label }}
+                        {{ form.compliment(class="form-control") }}
+                        {% for error in form.compliment.errors %}
+                            <span class="text-danger">{{ error }}</span>
+                        {% endfor %}
+                    </div>
+                    <div class="form-group">
+                        {{ form.warning.label }}
+                        {{ form.warning(class="form-control") }}
+                        {% for error in form.warning.errors %}
+                            <span class="text-danger">{{ error }}</span>
+                        {% endfor %}
+                    </div>
+
+                    {{ form.submit(class="btn btn-primary") }}
+                </form>
+
+{%endblock%}

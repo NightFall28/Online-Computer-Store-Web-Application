@@ -1,0 +1,28 @@
+{%extends "layout.html"%}
+{%block content%}
+
+<h1>Customize Your Macbook</h1>
+                <form method="POST" action="{{ url_for('macbook_detail', macbook_id=macbook.id) }}" enctype="multipart/form-data">
+                    {{ form.csrf_token }}
+                    
+                    <div class="form-row">
+                    <div class="form-group col-md-6">
+                        {{ form.memory.label }}
+                        {{ form.memory(class="form-control") }}
+                        {% for error in form.memory.errors %}
+                            <span class="text-danger">{{ error }}</span>
+                        {% endfor %}
+                    </div>
+                    </div>
+                    <div class="form-group">
+                        {{ form.storage.label }}
+                        {{ form.storage(class="form-control") }}
+                        {% for error in form.storage.errors %}
+                            <span class="text-danger">{{ error }}</span>
+                        {% endfor %}
+                    </div>
+                    
+                    {{ form.submit(class="btn btn-primary") }}
+                </form>
+
+{%endblock%}

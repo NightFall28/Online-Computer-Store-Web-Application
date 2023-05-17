@@ -1,0 +1,41 @@
+{%extends "layout.html"%}
+{%block content%}
+    <div class="content">
+        <h1 style="text-align: center">Communication List</h1>
+        <table class="table">
+            <thead>
+            <tr>
+                <th scope="col">User ID</th>
+                <th scope="col">Order ID</th>
+                <th scope="col">Author</th>
+                <th scope="col">Title</th>
+                <th scope="col">Date Posted</th>
+                <th scope="col">Detail</th>
+            </tr>
+            </thead>
+            <tbody>
+                {% for c in communicates %}
+                <tr>
+                    <td>{{ c.user_id }}</td>
+                    <td>{{ c.order_id }}</td>
+                    <td>{{ c.author }}</td>
+                    <td>{{ c.title }}</td>
+                    <td>{{ c.date_submitted.strftime('%Y/%m/%d %H:%M:%S') }}</td>
+                    <td><a href="{{ url_for('communicate_detail',order_id=c.order_id) }}">Detail</a></td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+    {% for page_num in communicates.iter_pages(left_edge=1, right_edge=1, left_current=1, right_current=2) %}
+        {% if page_num %}
+            {% if communicates.page == page_num %}
+                <a class="btn btn-info mb-4" href="{{ url_for('communicate', page=page_num) }}">{{ page_num }}</a>
+            {% else %}
+                <a class="btn btn-outline-info mb-4" href="{{ url_for('communicate', page=page_num) }}">{{ page_num }}</a>
+            {% endif %}
+        {% else %}
+            ...
+        {% endif %}
+    {% endfor %}
+{%endblock%} 

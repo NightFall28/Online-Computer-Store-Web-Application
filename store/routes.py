@@ -333,42 +333,17 @@ imac_accessory_list = [
 def home():
     
     # When first time visiting website with empty database, fill up database with necessary data first
-    if User.query.filter(User.email=='neilh200328@gmail.com').first():
+    if User.query.filter(User.email=='YOUR EMAIL').first():
         pass
     else:
         hashed_password = bcrypt.generate_password_hash('storeowner').decode('utf-8')
-        user = User(name='Store Owner', email='neilh200328@gmail.com', password=hashed_password, is_admin=True,
+        user = User(name='Store Owner', email='YOUR EMAIL', password=hashed_password, is_admin=True,
                     country='United States', state='NY', city='New York', address='666 Random Street',
                             zipcode=54321, image_file="hutao.jpg")
         db.session.add(user)
         db.session.commit()
-    # if User.query.filter(User.email=='neilh1334@gmail.com').first():
-    #     pass
-    # else:
-    #     hashed_password = bcrypt.generate_password_hash('12345').decode('utf-8')
-    #     user = User(name='Junhui Huang', email='neilh1334@gmail.com', password=hashed_password, is_employee=True,
-    #                 country='United States', state='NY', city='New York', address='888 Random Street',
-    #                         zipcode=54321)
-    #     db.session.add(user)
-    #     db.session.commit()
-    # if User.query.filter(User.email=='jhuang028@citymail.cuny.edu').first():
-    #     pass
-    # else:
-    #     hashed_password = bcrypt.generate_password_hash('12345').decode('utf-8')
-    #     user = User(name='Leo Huang', email='jhuang028@citymail.cuny.edu', password=hashed_password, is_customer=True,
-    #                 country='United States', state='NY', city='New York', address='160 Convent Avenue',
-    #                         zipcode=10031)
-    #     db.session.add(user)
-    #     db.session.commit()
-    # if User.query.filter(User.email=='tobikyle28@gmail.com').first():
-    #     pass
-    # else:
-    #     hashed_password = bcrypt.generate_password_hash('12345').decode('utf-8')
-    #     user = User(name='Lawrence', email='tobikyle28@gmail.com', password=hashed_password, is_customer=True,
-    #                 country='United States', state='NY', city='New York', address='Homeless',
-    #                         zipcode=54321)
-    #     db.session.add(user)
-    #     db.session.commit()
+    
+  
     if Processor.query.first():
         pass
     else:
@@ -753,11 +728,11 @@ def reject_application(application_id):
         db.session.commit()
         msg = Message('Your Application was Rejected',
                   sender='noreply@demo.com',
-                  recipients=[application.email, 'neilh200328@gmail.com'])
+                  recipients=[application.email])
         msg.body = f'''Dear
     {application.name}
         Your Application has been has been rejected.
-        Please contact neilh200328@gmail.com for appeal.
+        Please contact store owner for appeal.
         Computer Tech
         '''
         mail.send(msg)
@@ -778,7 +753,7 @@ def reject_memo(application_id):
             db.session.commit()
             msg = Message('Your Application was Rejected',
                   sender='noreply@demo.com',
-                  recipients=[application.email, 'neilh200328@gmail.com'])
+                  recipients=[application.email])
             msg.body = f'''Dear
         {application.name}
             Your Application has been has been rejected.

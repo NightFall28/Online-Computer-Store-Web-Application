@@ -1,5 +1,5 @@
-# Computer-Tech
-Online computer store project.
+# Online Computer Store Web Application
+Online E-commerce computer store project.
 
 # How to Run on Windows
 1. git clone the files to your local repository
